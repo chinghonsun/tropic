@@ -1,0 +1,123 @@
+struts1 styruts2或者webwork的配置过程， struts中有哪些jsp标签
+1.导入lib包
+2.配置web.xml
+3.创建struts.xml
+4.创建实体类
+5.创建service包
+6.创建action包（重写execute或者自定义实现方法）
+7.创建jsp页面
+
+jsp标签有：
+<jsp:useBean>、
+<jsp:setProperty>、
+<jsp:getProperty>、
+<jsp:include>、
+<jsp:forward>、
+<jsp:param>、
+<jsp:plugin>、
+<jsp:attribute>
+
+spring中如何获得容器中管理的bean
+1.在初始化时保存ApplicationContext对象
+2.通过Spring提供的工具类获取ApplicationContext对象
+3.继承抽象类ApplicationObjectSupport
+4.继承抽象类WebApplicationObjectSupport
+5.实现接口ApplicationContextAware
+如果是C/S架构的项目，推荐使用第一种方法
+如果是B/S架构的项目，推荐使用第二种方法
+
+
+多线程开发应该注意什么
+1.多线程的数据同步
+2.并发控制
+3.死锁
+4.优先级
+
+写出几个熟悉的http状态码及其含义
+200请求已成功、
+204无内容
+302请求的资源临时从其他uri响应请求
+304重复请求，直接从缓存区读取数据返回
+403无权访问该资源
+404找不到该资源、
+405方法未允许
+406无法访问
+
+socket编程要注意什么
+
+jsp有哪些内置对象
+1.request 用户端请求，此请求会包含来自GET/POST请求的参数 
+2.response 网页传回用户端的回应 
+3.pageContext 网页的属性 
+4.session 与请求有关的会话期 
+5.application 正在执行的内容 
+6.out 用来传送回应的输出 
+7.config servlet的构架部件 
+8.page JSP网页本身 
+9.exception 针对错误网页，未捕捉的例外
+
+连接池原理
+服务器启动时会建立一定数量的池连接，并一直维持不少于此数目的池
+连接。客户端程序需要连接时，池驱动程序会返回一个未使用的池连接并将
+其表记为忙。如果当前没有空闲连接，池驱动程序就新建一定数量的连接，
+新建连接的数量有配置参数决定。当使用的池连接调用完成后，池驱动程序
+将此连接表记为空闲，其他调用就可以使用这个连接。
+
+数据库中表(学号 成绩)， 如何找到成绩至少两门不及格的学生
+
+
+什么时候应该建立索引， 什么时候不应该建立索引， 什么时候索引失效
+1.通常是给经常需要进行查询的字段创建索引
+2.表记录较少、经常插入删除修改的表、数据大量重复且分布平均的表字段不
+应该建立索引
+3.类似like'%xx'、'！='、'||'、'+'、使用upper、not in等操作都会使索引失效
+
+
+finally什么情况下不执行
+System.exit()；在不终止JVM的情况下，finally中的代码一定会执行。
+
+写代码实现单例模式
+1.最常用的写法
+public class LazySingleton{
+    private static LazySingleton singleton;
+    private LazySingleton(){}
+    public static LazySingleton getInstance(){
+	if(singleton==null)
+	    singleton=new LazySingleton();
+	return singleton;
+    }
+}
+2.最不好的写法
+public class LazySingleton{
+    private static LazySingleton singleton=new LazySingleton();
+    private LazySingleton(){}
+    public static LazySingleton getInstance(){
+	return singleton;
+    }
+}
+3.使用静态内部类的写法
+public class LazySingleton{
+    private static class SingletonClass{
+	private final static LazySingleton INSTANCE=new LazySingleton();
+    }
+    private LazySingleton(){}
+    public static LazySingleton getInstance(){
+	return SingletonClass.INSTANCE;
+    }
+}
+4.双重校验锁
+public class LockSingleton{
+    private volatile static LockSingleton singleton;
+    private LockSingleton(){}
+
+    public static LockSingleton getInstance(){
+	if(singleton==null){
+	    synchronized(LockSingleton.class){
+		if(singleton==null){
+		    singleton=new LockSingleton();
+		}
+	    }
+	}
+	return singleton;
+    }
+}
